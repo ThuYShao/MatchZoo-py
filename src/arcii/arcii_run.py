@@ -112,7 +112,7 @@ trainer = mz.trainers.Trainer(
     validloader=validloader,
     testloader=testloader,
     validate_interval=None,
-    epochs=10
+    epochs=3
 )
 
 trainer.run()

@@ -304,13 +304,17 @@ class Trainer:
         y_pred = self.predict(dataloader)
         y_true = dataloader.label
         id_left = dataloader.id_left
+        id_right = dataloader.id_right
         if write_down == True:
             y1 = y_true.tolist()
             y2 = y_pred.tolist()
-            fw = open(name+'.txt','w')
+            id_left_lst = id_left.tolist()
+            id_right_lst = id_right.tolist()
+            out_name = self._save_dir.joinpath(name + '.txt')
+            fw = open(out_name,'w')
             import json
             for i in range(len(y1)):
-                res = [y1[i], y2[i]]
+                res = [id_left_lst[i], id_right_lst[i], y1[i], y2[i]]
                 fw.write("%s\n" % json.dumps(res))
         if isinstance(self._task, tasks.Classification):
             for metric in self._task.metrics:
