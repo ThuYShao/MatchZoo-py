@@ -33,7 +33,7 @@ test_pack_processed = preprocessor.transform(test_pack_raw)
 
 print(preprocessor.context)
 
-glove_embedding = mz.datasets.embeddings.load_glove_embedding(dimension=100)
+glove_embedding = mz.datasets.embeddings.load_glove_embedding(dimension=300)
 term_index = preprocessor.context['vocab_unit'].state['term_index']
 embedding_matrix = glove_embedding.build_matrix(term_index)
 l2_norm = np.sqrt((embedding_matrix * embedding_matrix).sum(axis=1))
@@ -52,8 +52,8 @@ validset = mz.dataloader.Dataset(
 
 
 padding_callback = mz.models.ArcII.get_default_padding_callback(
-    fixed_length_left=3000,
-    fixed_length_right=3000,
+    fixed_length_left=512,
+    fixed_length_right=512,
     pad_word_value=0,
     pad_word_mode='pre'
 )
@@ -96,7 +96,7 @@ model.params['kernel_1d_size'] = 3
 model.params['kernel_2d_count'] = [64, 64]
 model.params['kernel_2d_size'] = [(3, 3), (3, 3)]
 model.params['pool_2d_size'] = [(3, 3), (3, 3)]
-
+model.params['dropout_rate'] = 0.3
 model.build()
 
 print(model)
@@ -111,7 +111,7 @@ trainer = mz.trainers.Trainer(
     validloader=validloader,
     testloader=testloader,
     validate_interval=None,
-    epochs=3
+    epochs=10
 )
 
 trainer.run()
