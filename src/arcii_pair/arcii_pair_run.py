@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+__author__ = 'yshao'
+
 import torch
 import numpy as np
 import pandas as pd
@@ -7,7 +10,7 @@ print('matchzoo version', mz.__version__)
 
 DATA_DIR = '/data/disk2/private/guozhipeng/syq/coliee/Case_Law/format/matchzoo'
 
-ranking_task = mz.tasks.Ranking(losses=mz.losses.RankCrossEntropyLoss())
+ranking_task = mz.tasks.Ranking(losses=mz.losses.RankHingeLoss())
 ranking_task.metrics = [
     mz.metrics.Precision(k=1),
     mz.metrics.Precision(k=5),
@@ -40,7 +43,10 @@ l2_norm = np.sqrt((embedding_matrix * embedding_matrix).sum(axis=1))
 embedding_matrix = embedding_matrix / l2_norm[:, np.newaxis]
 
 trainset = mz.dataloader.Dataset(
-    data_pack=train_pack_processed
+    data_pack=train_pack_processed,
+    mode='pair',
+    num_dup=1,
+    num_neg=5
 )
 testset = mz.dataloader.Dataset(
     data_pack=test_pack_processed
