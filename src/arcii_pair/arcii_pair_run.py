@@ -12,8 +12,8 @@ DATA_DIR = '/data/disk2/private/guozhipeng/syq/coliee/Case_Law/format/matchzoo'
 
 ranking_task = mz.tasks.Ranking(losses=mz.losses.RankHingeLoss())
 ranking_task.metrics = [
-    mz.metrics.Precision(k=1),
     mz.metrics.Precision(k=5),
+    mz.metrics.Recall(k=5),
     mz.metrics.MeanAveragePrecision(),
 ]
 print("`ranking_task` initialized with metrics", ranking_task.metrics)
@@ -58,8 +58,8 @@ validset = mz.dataloader.Dataset(
 
 
 padding_callback = mz.models.ArcII.get_default_padding_callback(
-    fixed_length_left=512,
-    fixed_length_right=512,
+    fixed_length_left=256,
+    fixed_length_right=256,
     pad_word_value=0,
     pad_word_mode='pre'
 )
@@ -95,14 +95,13 @@ model = mz.models.ArcII()
 
 model.params['task'] = ranking_task
 model.params['embedding'] = embedding_matrix
-model.params['left_length'] = 512
-model.params['right_length'] = 512
+model.params['left_length'] = 256
+model.params['right_length'] = 256
 model.params['kernel_1d_count'] = 32
 model.params['kernel_1d_size'] = 3
 model.params['kernel_2d_count'] = [64, 64]
 model.params['kernel_2d_size'] = [(3, 3), (3, 3)]
 model.params['pool_2d_size'] = [(3, 3), (3, 3)]
-model.params['dropout_rate'] = 0.3
 
 model.build()
 

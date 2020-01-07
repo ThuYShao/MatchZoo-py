@@ -9,8 +9,8 @@ DATA_DIR = '/data/disk2/private/guozhipeng/syq/coliee/Case_Law/format/matchzoo'
 
 ranking_task = mz.tasks.Ranking(losses=mz.losses.RankCrossEntropyLoss())
 ranking_task.metrics = [
-    mz.metrics.Precision(k=1),
     mz.metrics.Precision(k=5),
+    mz.metrics.Recall(k=5),
     mz.metrics.MeanAveragePrecision(),
 ]
 print("`ranking_task` initialized with metrics", ranking_task.metrics)
@@ -96,7 +96,6 @@ model.params['kernel_1d_size'] = 3
 model.params['kernel_2d_count'] = [64, 64]
 model.params['kernel_2d_size'] = [(3, 3), (3, 3)]
 model.params['pool_2d_size'] = [(3, 3), (3, 3)]
-model.params['dropout_rate'] = 0.3
 
 model.build()
 

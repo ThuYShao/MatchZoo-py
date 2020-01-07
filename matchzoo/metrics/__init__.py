@@ -1,4 +1,5 @@
 from .precision import Precision
+from .recall import Recall
 from .average_precision import AveragePrecision
 from .discounted_cumulative_gain import DiscountedCumulativeGain
 from .mean_reciprocal_rank import MeanReciprocalRank
