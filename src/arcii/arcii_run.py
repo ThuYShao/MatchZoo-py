@@ -72,16 +72,18 @@ validloader = mz.dataloader.DataLoader(
     dataset=validset,
     batch_size=16,
     stage='dev',
+    sort=False,
     callback=padding_callback,
-    num_workers=2
+    num_workers=1
 )
 
 testloader = mz.dataloader.DataLoader(
     dataset=testset,
     batch_size=16,
     stage='dev',
+    sort=False,
     callback=padding_callback,
-    num_workers=2
+    num_workers=1
 )
 
 
@@ -111,7 +113,7 @@ trainer = mz.trainers.Trainer(
     validloader=validloader,
     testloader=testloader,
     validate_interval=None,
-    epochs=10
+    epochs=5
 )
 
 trainer.run()

@@ -78,6 +78,7 @@ validloader = mz.dataloader.DataLoader(
     dataset=validset,
     batch_size=8,
     stage='dev',
+    sort=False,
     callback=padding_callback,
     num_workers=2
 )
@@ -86,6 +87,7 @@ testloader = mz.dataloader.DataLoader(
     dataset=testset,
     batch_size=8,
     stage='dev',
+    sort=False,
     callback=padding_callback,
     num_workers=2
 )
