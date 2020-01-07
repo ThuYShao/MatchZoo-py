@@ -76,7 +76,7 @@ trainloader = mz.dataloader.DataLoader(
 
 validloader = mz.dataloader.DataLoader(
     dataset=validset,
-    batch_size=16,
+    batch_size=8,
     stage='dev',
     callback=padding_callback,
     num_workers=2
@@ -84,7 +84,7 @@ validloader = mz.dataloader.DataLoader(
 
 testloader = mz.dataloader.DataLoader(
     dataset=testset,
-    batch_size=16,
+    batch_size=8,
     stage='dev',
     callback=padding_callback,
     num_workers=2
