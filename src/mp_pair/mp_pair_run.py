@@ -115,3 +115,6 @@ trainer = mz.trainers.Trainer(
     validate_interval=None,
     epochs=10
 )
+
+trainer.run()
+
